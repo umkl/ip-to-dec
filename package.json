@@ -1,0 +1,6 @@
+{
+	"name": "ip-to-dec",
+	"bin": {
+		"ip-to-dec": "./bin/cli.js"
+	}
+}
