@@ -34,8 +34,21 @@ function ipToDecimal(ip) {
 }
 
 function convertIpToDecimal(ip) {
-	const octets = ip.split(".").map(Number);
-	return (octets[0] << 24) + (octets[1] << 16) + (octets[2] << 8) + octets[3];
+	const octets = ip.split(".");
+
+	if (octets.length !== 4) {
+		throw new Error("Invalid IP address format");
+	}
+
+	return octets.reduce((acc, octet, index) => {
+		const num = parseInt(octet, 10);
+
+		if (isNaN(num) || num < 0 || num > 255) {
+			throw new Error("Invalid octet value: " + octet);
+		}
+
+		return acc + (num << (8 * (3 - index)));
+	}, 0);
 }
 
 module.exports = {
